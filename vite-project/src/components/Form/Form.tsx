@@ -20,7 +20,7 @@ const Form = ({post, posts, setPosts}:IProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const tags = text.match(patterns.hasgtag) || [];
+    const tags = uniqTags(text);
     const id = post ? post.id : new Date().getTime();
     const handledPost = {
       id,
@@ -34,6 +34,12 @@ const Form = ({post, posts, setPosts}:IProps) => {
       setEditPost(handledPost, posts);
     }
     setText('');
+  }
+
+  const uniqTags = (text: string) => {
+    const allTags = text.match(patterns.hasgtag) || [];
+    const set = new Set(allTags);
+    return Array.from(set);
   }
 
   const createNewPost = (post: IPost, posts: IPost[]) => {
