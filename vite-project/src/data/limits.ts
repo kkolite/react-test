@@ -1,0 +1,6 @@
+export const LIMIT = {
+  POST_TITLE: 10,
+  POST_TEXT: 400,
+  MIN_POST_TITLE: 1,
+  MIN_POST_TEXT: 1
+}
