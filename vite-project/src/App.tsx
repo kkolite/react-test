@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <div className="container">
         <MainControls setPost={setPosts}/>
-        <Form />
+        <Form setPosts={setPosts} posts={posts}/>
         <PostList postList={posts} />
       </div>
     </div>
