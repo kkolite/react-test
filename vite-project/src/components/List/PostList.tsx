@@ -1,4 +1,5 @@
 import { IPost } from "../../data/types";
+import EmptyList from "./EmptyList";
 import Post from "./Post";
 
 interface IProps {
@@ -6,13 +7,15 @@ interface IProps {
 }
 
 const PostList = ({postList}:IProps) => {
-  return (
-    <div>
+  const result = postList.length
+  ? (<div>
       {postList.map((el) => 
         <Post key={el.id} post={el}/>
       )}
-    </div>
-  );
+    </div>)
+  : <EmptyList />
+  
+  return result
 };
 
 export default PostList;
