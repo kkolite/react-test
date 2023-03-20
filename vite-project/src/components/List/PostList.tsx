@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IPost } from "../../data/types";
 import EmptyList from "./EmptyList";
 import Post from "./Post";
