@@ -2,10 +2,11 @@ import { IPost } from "../../data/types";
 import TagList from "../UI/TagList";
 
 interface IProps {
-  post: IPost
+  post: IPost,
+  deletePost: (id: number) => void
 }
 
-const Post = ({post}:IProps) => {
+const Post = ({post, deletePost}:IProps) => {
   return (
     <div>
       <h3>{post.title}</h3>
@@ -13,7 +14,7 @@ const Post = ({post}:IProps) => {
       <TagList tags={post.tags} />
       <div>
         <button>Edit</button>
-        <button>Delete</button>
+        <button onClick={() => deletePost(post.id)}>Delete</button>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ function App() {
       <div className="container">
         <MainControls setPost={setPosts}/>
         <Form setPosts={setPosts} posts={posts}/>
-        <PostList postList={posts} />
+        <PostList postList={posts} setPosts={setPosts}/>
       </div>
     </div>
   )
