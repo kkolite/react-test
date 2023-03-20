@@ -2,6 +2,7 @@ import { useState } from 'react'
 import MainControls from './components/MainControls'
 import PostList from './components/List/PostList'
 import { IPost } from './data/types'
+import Form from './components/Form/Form';
 
 function App() {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -10,6 +11,7 @@ function App() {
     <div className="App">
       <div className="container">
         <MainControls setPost={setPosts}/>
+        <Form />
         <PostList postList={posts} />
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { IPost } from "../../data/types";
+import TagList from "../UI/TagList";
 
 interface IProps {
   post: IPost
@@ -9,11 +10,7 @@ const Post = ({post}:IProps) => {
     <div>
       <h3>{post.title}</h3>
       <div>{post.text}</div>
-      <div>
-        {post.tags.map((el) => 
-          <span key={el}>#{el}</span>
-        )}
-      </div>
+      <TagList tags={post.tags} />
       <div>
         <button>Edit</button>
         <button>Delete</button>
