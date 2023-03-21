@@ -1,16 +1,15 @@
 import classes from './MyModal.module.scss';
 
 interface IProps {
-  visible: boolean,
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>,
-  children: JSX.Element
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  children: JSX.Element;
 }
 
-const MyModal = ({children, visible, setVisible}:IProps) => {
-
+const MyModal = ({ children, visible, setVisible }: IProps) => {
   const cl = [classes.myModal];
   if (visible) {
-    cl.push(classes.active)
+    cl.push(classes.active);
   }
 
   return (
