@@ -6,9 +6,10 @@ import Form from './components/Form/Form';
 import MyModal from './components/UI/modal/MyModal';
 import Filter from './components/Filter/Filter';
 import uniqArr from './utils/uniqArr';
+import * as data from './data/posts.json'
 
 function App() {
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const [posts, setPosts] = useState<IPost[]>(data.posts);
   const [viseble, setVisible] = useState<boolean>(false);
   const [edit, setEdit] = useState<IPost | null>(null);
   const [text, setText] = useState<string>('');
