@@ -1,0 +1,62 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.taglist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  height: 50px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar{
+    width: 14px;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 5px solid rgba(0,0,0,0);
+    background-clip: padding-box;
+    border-radius: 20px;
+    background-color: rgb(90, 165, 250)
+  }
+
+  &__container {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.input {
+  padding: 5px 20px 5px 5px;
+  border: 1px solid rgba(90, 165, 250, .8);
+  border-radius: 5px;
+  height: 30px;
+
+  &__container {
+    position: relative;
+  }
+
+  &__reset {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: 6px;
+    right: 5px;
+    cursor: pointer;
+    opacity: .8;
+    transition: all .2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

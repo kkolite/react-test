@@ -1,0 +1,51 @@
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(90, 165, 250);
+  width: 300px;
+  justify-content: space-between;
+}
+
+.controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.button {
+  width: 30%;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(90, 165, 250);
+  margin: 0 auto;
+  cursor: pointer;
+  opacity: .8;
+  transition: all .2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.taglist {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+
+  &__container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}

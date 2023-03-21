@@ -1,0 +1,14 @@
+.postlist {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.empty {
+  margin-top: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
