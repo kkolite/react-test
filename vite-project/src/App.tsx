@@ -7,10 +7,10 @@ import MyModal from './components/UI/modal/MyModal';
 
 function App() {
   const [posts, setPosts] = useState<IPost[]>([]);
-  const [filterPosts, setFilter] = useState<IPost[]>(posts);
   const [viseble, setVisible] = useState<boolean>(false);
   const [edit, setEdit] = useState<IPost | null>(null);
   const [text, setText] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
 
   const openForm = (post?: IPost) => {
     setEdit(post || null);
@@ -22,11 +22,25 @@ function App() {
     setPosts(posts.filter((el) => el.id !== id));
   }
 
+  const createNewPost = (post: IPost) => {
+    setPosts([...posts, post]);
+  }
+
+  const setEditPost = (post: IPost) => {
+    const arr = [...posts];
+    const index = arr.findIndex((el) => el.id === post.id);
+    arr[index] = post;
+    setPosts([...arr]);
+  }
+
+  const afterSubmit = () => {
+    setText('');
+    setVisible(false);
+  }
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value.toLowerCase();
-    setFilter(posts.filter((el) => 
-      el.tags.includes(value)
-    ));
+    setSearch(value);
   }
 
   return (
@@ -35,18 +49,21 @@ function App() {
         <MainControls openForm={openForm}/>
         <MyModal visible={viseble} setVisible={setVisible}>
           <Form 
-            setPosts={setPosts} 
-            posts={posts} 
             post={edit} 
-            setVisible={setVisible}
             text={text}
             setText={setText}
+            submit={afterSubmit}
+            create={createNewPost}
+            edit={setEditPost}
           />
         </MyModal>
-        <input type="text" name="" id="" onChange={handleSearch}/>
+        <input 
+          type="text" 
+          value={search}
+          onChange={handleSearch}
+        />
         <PostList 
-          /*postList={filterPosts} */
-          postList={posts}
+          postList={posts.filter((el) => el.text.toLowerCase().includes(search))}
           openForm={openForm} 
           deletePost={deletePost}
         />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import TweetTextarea from 'tweet-textarea-react'
 import { LIMIT } from '../../data/limits';
 import patterns from '../../data/patterns';
@@ -8,17 +8,14 @@ import './Textarea.scss';
 
 interface IProps {
   post?: IPost | null,
-  posts: IPost[],
   text: string,
-  setText: React.Dispatch<React.SetStateAction<string>>
-  setPosts: React.Dispatch<React.SetStateAction<IPost[]>>,
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
+  setText: React.Dispatch<React.SetStateAction<string>>,
+  submit: () => void,
+  create: (post: IPost) => void,
+  edit: (post: IPost) => void
 }
 
-const Form = ({post, posts, setPosts, setVisible, text, setText}:IProps) => {
-  //const [text, setText] = useState<string>('');
-  const [textSize, setTextSize] = useState<number>(0);
-
+const Form = ({post, text, submit, setText, create, edit}:IProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const tags = uniqTags(text);
@@ -29,34 +26,17 @@ const Form = ({post, posts, setPosts, setVisible, text, setText}:IProps) => {
       tags
     }
 
-    if (!post) createNewPost(handledPost, posts);
+    if (!post) create(handledPost);
     if (post) {
-      setEditPost(handledPost, posts);
+      edit(handledPost);
     }
-    afterSubmit();
+    submit();
   }
 
   const uniqTags = (text: string) => {
     const allTags = text.match(patterns.hasgtag) || [];
     const set = new Set(allTags);
     return Array.from(set);
-  }
-
-  const createNewPost = (post: IPost, posts: IPost[]) => {
-    setPosts([...posts, post]);
-  }
-
-  const setEditPost = (post: IPost, posts: IPost[]) => {
-    const arr = [...posts];
-    const index = arr.findIndex((el) => el.id === post.id);
-    arr[index] = post;
-    setPosts([...arr]);
-  }
-
-  const afterSubmit = () => {
-    setText('');
-    setTextSize(0);
-    setVisible(false);
   }
 
   return (
@@ -66,10 +46,8 @@ const Form = ({post, posts, setPosts, setVisible, text, setText}:IProps) => {
           value={text}
           onTextUpdate={(e) => {
             const value = e.detail.currentText;
-            setTextSize(value.length);
             setText(e.detail.currentText);
           }}
-           
         />
         <label>
           {text.length} / {LIMIT.POST_TEXT}
@@ -77,8 +55,8 @@ const Form = ({post, posts, setPosts, setVisible, text, setText}:IProps) => {
       </div>      
       <button 
         disabled={
-          textSize < LIMIT.MIN_POST_TEXT ||
-          textSize > LIMIT.POST_TEXT 
+          text.length < LIMIT.MIN_POST_TEXT ||
+          text.length > LIMIT.POST_TEXT 
         }
         className={classes.button}
       >Submit</button>
