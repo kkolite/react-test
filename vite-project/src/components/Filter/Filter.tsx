@@ -1,4 +1,5 @@
 import React from 'react';
+import ClearSearch from '../../assets/ClearSearch';
 import TagList from '../TagList/TagList';
 import classes from './Filter.module.scss';
 
@@ -15,13 +16,21 @@ const Filter = ({tags, search, setSearch}:IProps) => {
         <label>Tags:</label>
         <TagList tags={tags} setSearch={setSearch} className={classes.taglist}/>
       </div>
-      <input 
-        type="text"
-        className={classes.input} 
-        placeholder='Search by text'
-        value={search}
-        onChange={(e) => setSearch(e.currentTarget.value)}
-      />
+      <div className={classes.input__container}>
+        <input 
+          type="text"
+          className={classes.input} 
+          placeholder='Search by text'
+          value={search}
+          onChange={(e) => setSearch(e.currentTarget.value)}
+        />
+        <span 
+          className={classes.input__reset}
+          onClick={() => setSearch('')}
+        >
+          <ClearSearch />
+        </span>
+      </div>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const TagList = ({tags, setSearch, ...props}:IProps) => {
       )}
     </div>
     )
-  : <div>No tags</div>;
+  : <div>-</div>;
 
   return result;
 };

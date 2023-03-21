@@ -13,11 +13,14 @@ const Post = ({post, deletePost, openForm, setSearch}:IProps) => {
   return (
     <div className={classes.post}>
       <div>{post.text}</div>
-      <TagList 
-        tags={post.tags} 
-        className={classes.taglist}
-        setSearch={setSearch}
-      />
+      <div className={classes.taglist__container}>
+        <label>Tags:</label>
+        <TagList 
+          tags={post.tags} 
+          className={classes.taglist}
+          setSearch={setSearch}
+        />
+      </div>
       <div className={classes.controls}>
         <button 
           onClick={() => openForm(post)}

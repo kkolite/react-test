@@ -30,3 +30,15 @@
     opacity: 1;
   }
 }
+
+.taglist {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+
+  &__container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
