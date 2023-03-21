@@ -1,0 +1,28 @@
+.tweet-textarea {
+  padding: 10px;
+  border: 1px solid rgb(90, 165, 250);
+  border-radius: 10px;
+  height: 200px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar{
+    width: 14px;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 5px solid rgba(0,0,0,0);
+    background-clip: padding-box;
+    border-radius: 20px;
+    background-color: rgb(90, 165, 250)
+  }
+
+}
+
+.highlight {
+  color: navy;
+}

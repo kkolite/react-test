@@ -23,7 +23,7 @@ function App() {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value.toLowerCase();
     setFilter(posts.filter((el) => 
-      el.tags.includes(value) || el.title.toLowerCase().includes(value)
+      el.tags.includes(value)
     ));
   }
 
@@ -41,7 +41,8 @@ function App() {
         </MyModal>
         <input type="text" name="" id="" onChange={handleSearch}/>
         <PostList 
-          postList={filterPosts} 
+          /*postList={filterPosts} */
+          postList={posts}
           openForm={openForm} 
           deletePost={deletePost}
         />

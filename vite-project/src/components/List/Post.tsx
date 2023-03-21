@@ -10,7 +10,6 @@ interface IProps {
 const Post = ({post, deletePost, openForm}:IProps) => {
   return (
     <div>
-      <h3>{post.title}</h3>
       <div>{post.text}</div>
       <TagList tags={post.tags} />
       <div>

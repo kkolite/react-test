@@ -3,7 +3,8 @@ import TweetTextarea from 'tweet-textarea-react'
 import { LIMIT } from '../../data/limits';
 import patterns from '../../data/patterns';
 import { IPost } from "../../data/types";
-import "./Form.scss"
+import classes from './Form.module.scss';
+import './Textarea.scss';
 
 interface IProps {
   setPosts: React.Dispatch<React.SetStateAction<IPost[]>>,
@@ -14,15 +15,11 @@ interface IProps {
 
 const Form = ({post, posts, setPosts, setVisible}:IProps) => {
   const [text, setText] = useState<string>('');
-  const [title, setTitle] = useState<string>('');
-  const [titleSize, setTitleSize] = useState<number>(0);
   const [textSize, setTextSize] = useState<number>(0);
 
   useEffect(() => {
     if (post) {
       setText(post.text);
-      setTitle(post.title);
-      setTitleSize(post.title.length);
       setTextSize(post.text.length);
     }
   })
@@ -33,7 +30,6 @@ const Form = ({post, posts, setPosts, setVisible}:IProps) => {
     const id = post ? post.id : new Date().getTime();
     const handledPost = {
       id,
-      title,
       text,
       tags
     }
@@ -62,45 +58,32 @@ const Form = ({post, posts, setPosts, setVisible}:IProps) => {
 
   const afterSubmit = () => {
     setText('');
-    setTitle('');
-    setTitleSize(0);
     setTextSize(0);
     setVisible(false);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        type="text" 
-        name="title"  
-        value={title}
-        onChange={(e) => {
-          const value = e.currentTarget.value;
-          if (value.length > LIMIT.POST_TITLE) return;
-          setTitleSize(value.length);
-          setTitle(e.currentTarget.value);
-        }}
-      />
-      <label>
-        {titleSize} / {LIMIT.POST_TITLE}
-      </label>
-      <TweetTextarea 
-        value={text}
-        onTextUpdate={(e) => {
-          const value = e.detail.currentText;
-          if (value.length > LIMIT.POST_TEXT) return;
-          setTextSize(e.detail.currentText.length);
-          setText(e.detail.currentText);
-        }} 
-      />
-      <label>
-        {textSize} / {LIMIT.POST_TEXT}
-      </label>
+    <form onSubmit={handleSubmit} className={classes.form}>
+      <div className={classes.form__container}>
+        <TweetTextarea 
+          value={text}
+          //className={classes.textarea}
+          onTextUpdate={(e) => {
+            const value = e.detail.currentText;
+            setTextSize(value.length);
+            setText(e.detail.currentText);
+          }} 
+        />
+        <label>
+          {text.length} / {LIMIT.POST_TEXT}
+        </label>
+      </div>      
       <button 
         disabled={
-          titleSize < LIMIT.MIN_POST_TITLE || 
-          textSize < LIMIT.MIN_POST_TEXT
+          textSize < LIMIT.MIN_POST_TEXT ||
+          textSize > LIMIT.POST_TEXT 
         }
+        className={classes.button}
       >Submit</button>
     </form>
   );
