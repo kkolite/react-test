@@ -2,13 +2,17 @@ import React from "react";
 import { IPost } from "../data/types";
 
 interface IProps {
-  setPost: React.Dispatch<React.SetStateAction<IPost[]>>
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const MainControls = ({setPost}:IProps) => {
+const MainControls = ({setVisible}:IProps) => {
+  const handleClick = () => {
+    setVisible(true);
+  }
+
   return (
     <div>
-      <button>Create Post</button>
+      <button onClick={handleClick}>Create Post</button>
     </div>
   );
 };
