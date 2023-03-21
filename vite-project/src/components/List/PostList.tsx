@@ -1,6 +1,7 @@
 import { IPost } from "../../data/types";
 import EmptyList from "./EmptyList";
-import Post from "./Post";
+import Post from "../Post/Post";
+import classes from "./PostList.module.scss";
 
 interface IProps {
   postList: IPost[],
@@ -10,7 +11,7 @@ interface IProps {
 
 const PostList = ({postList, openForm, deletePost}:IProps) => {
   const result = postList.length
-  ? (<div>
+  ? (<div className={classes.postlist}>
       {postList.map((el) => 
         <Post key={el.id} post={el} deletePost={deletePost} openForm={openForm} />
       )}

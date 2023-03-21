@@ -1,12 +1,13 @@
 interface IProps {
-  tags: string[]
+  tags: string[],
+  [key: string]: unknown
 }
-const TagList = ({tags}:IProps) => {
+const TagList = ({tags, ...props}:IProps) => {
   const result = tags.length
   ? (
-    <div>
+    <div {...props}>
       {tags.map((el) => 
-        <span key={el}>#{el}</span>
+        <span key={el} className="highlight">{el}</span>
       )}
     </div>
     )

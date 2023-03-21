@@ -1,8 +1,8 @@
-import React from 'react';
+import classes from "./PostList.module.scss";
 
 const EmptyList = () => {
   return (
-    <div>
+    <div className={classes.empty}>
       Empty list
     </div>
   );
