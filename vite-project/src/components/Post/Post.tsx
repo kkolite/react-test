@@ -1,18 +1,23 @@
 import { IPost } from "../../data/types";
-import TagList from "../UI/TagList";
+import TagList from "../TagList/TagList";
 import classes from "./Post.module.scss";
 
 interface IProps {
   post: IPost,
   deletePost: (id: number) => void,
   openForm: (post?: IPost) => void,
+  setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Post = ({post, deletePost, openForm}:IProps) => {
+const Post = ({post, deletePost, openForm, setSearch}:IProps) => {
   return (
     <div className={classes.post}>
       <div>{post.text}</div>
-      <TagList tags={post.tags} className={classes.taglist}/>
+      <TagList 
+        tags={post.tags} 
+        className={classes.taglist}
+        setSearch={setSearch}
+      />
       <div className={classes.controls}>
         <button 
           onClick={() => openForm(post)}

@@ -1,0 +1,10 @@
+.taglink {
+  color: cadetblue;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: .8;
+  transition: all .2s;
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -66,6 +66,7 @@ function App() {
           postList={posts.filter((el) => el.text.toLowerCase().includes(search))}
           openForm={openForm} 
           deletePost={deletePost}
+          setSearch={setSearch}
         />
       </div>
     </div>
