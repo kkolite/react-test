@@ -2,12 +2,12 @@ import React from "react";
 import { IPost } from "../data/types";
 
 interface IProps {
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>
+  openForm: (post?: IPost) => void
 }
 
-const MainControls = ({setVisible}:IProps) => {
+const MainControls = ({openForm}:IProps) => {
   const handleClick = () => {
-    setVisible(true);
+    openForm();
   }
 
   return (

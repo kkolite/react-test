@@ -1,22 +1,18 @@
-import { useState } from "react";
 import { IPost } from "../../data/types";
 import EmptyList from "./EmptyList";
 import Post from "./Post";
 
 interface IProps {
   postList: IPost[],
-  setPosts: React.Dispatch<React.SetStateAction<IPost[]>>
+  openForm: (post?: IPost) => void,
+  deletePost: (id: number) => void
 }
 
-const PostList = ({postList, setPosts}:IProps) => {
-  const deletePost = (id: number) => {
-    setPosts(postList.filter((el) => el.id !== id));
-  }
-
+const PostList = ({postList, openForm, deletePost}:IProps) => {
   const result = postList.length
   ? (<div>
       {postList.map((el) => 
-        <Post key={el.id} post={el} deletePost={deletePost}/>
+        <Post key={el.id} post={el} deletePost={deletePost} openForm={openForm} />
       )}
     </div>)
   : <EmptyList />

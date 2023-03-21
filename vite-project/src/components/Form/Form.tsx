@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TweetTextarea from 'tweet-textarea-react'
 import { LIMIT } from '../../data/limits';
 import patterns from '../../data/patterns';
@@ -7,19 +7,28 @@ import "./Form.scss"
 
 interface IProps {
   setPosts: React.Dispatch<React.SetStateAction<IPost[]>>,
-  post?: IPost,
-  posts: IPost[]
+  post?: IPost | null,
+  posts: IPost[],
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Form = ({post, posts, setPosts}:IProps) => {
+const Form = ({post, posts, setPosts, setVisible}:IProps) => {
   const [text, setText] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [titleSize, setTitleSize] = useState<number>(0);
   const [textSize, setTextSize] = useState<number>(0);
 
+  useEffect(() => {
+    if (post) {
+      setText(post.text);
+      setTitle(post.title);
+      setTitleSize(post.title.length);
+      setTextSize(post.text.length);
+    }
+  })
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const tags = uniqTags(text);
     const id = post ? post.id : new Date().getTime();
     const handledPost = {
@@ -33,7 +42,7 @@ const Form = ({post, posts, setPosts}:IProps) => {
     if (post) {
       setEditPost(handledPost, posts);
     }
-    setText('');
+    afterSubmit();
   }
 
   const uniqTags = (text: string) => {
@@ -47,10 +56,16 @@ const Form = ({post, posts, setPosts}:IProps) => {
   }
 
   const setEditPost = (post: IPost, posts: IPost[]) => {
-    const arr = [...posts];
-    const index = arr.findIndex((el) => el.id === post.id);
-    arr[index] = post;
-    setPosts(arr);
+    const arr = [...posts.filter((el) => el.id !== post.id)];
+    setPosts([...arr, post]);
+  }
+
+  const afterSubmit = () => {
+    setText('');
+    setTitle('');
+    setTitleSize(0);
+    setTextSize(0);
+    setVisible(false);
   }
 
   return (
@@ -58,7 +73,7 @@ const Form = ({post, posts, setPosts}:IProps) => {
       <input 
         type="text" 
         name="title"  
-        value={title} 
+        value={title}
         onChange={(e) => {
           const value = e.currentTarget.value;
           if (value.length > LIMIT.POST_TITLE) return;
@@ -71,7 +86,6 @@ const Form = ({post, posts, setPosts}:IProps) => {
       </label>
       <TweetTextarea 
         value={text}
-        defaultValue={post ? post.text : ''}
         onTextUpdate={(e) => {
           const value = e.detail.currentText;
           if (value.length > LIMIT.POST_TEXT) return;

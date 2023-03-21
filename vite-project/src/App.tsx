@@ -9,6 +9,16 @@ function App() {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [filterPosts, setFilter] = useState<IPost[]>(posts);
   const [viseble, setVisible] = useState<boolean>(false);
+  const [edit, setEdit] = useState<IPost | null>(null);
+
+  const openForm = (post?: IPost) => {
+    setEdit(post || null);
+    setVisible(true);
+  }
+
+  const deletePost = (id: number) => {
+    setPosts(posts.filter((el) => el.id !== id));
+  }
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value.toLowerCase();
@@ -20,12 +30,21 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        <MainControls setVisible={setVisible}/>
+        <MainControls openForm={openForm}/>
         <MyModal visible={viseble} setVisible={setVisible}>
-          <Form setPosts={setPosts} posts={posts}/>
+          <Form 
+            setPosts={setPosts} 
+            posts={posts} 
+            post={edit} 
+            setVisible={setVisible}
+          />
         </MyModal>
         <input type="text" name="" id="" onChange={handleSearch}/>
-        <PostList postList={filterPosts} setPosts={setPosts}/>
+        <PostList 
+          postList={filterPosts} 
+          openForm={openForm} 
+          deletePost={deletePost}
+        />
       </div>
     </div>
   )
