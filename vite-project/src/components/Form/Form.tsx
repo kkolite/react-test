@@ -7,22 +7,17 @@ import classes from './Form.module.scss';
 import './Textarea.scss';
 
 interface IProps {
-  setPosts: React.Dispatch<React.SetStateAction<IPost[]>>,
   post?: IPost | null,
   posts: IPost[],
+  text: string,
+  setText: React.Dispatch<React.SetStateAction<string>>
+  setPosts: React.Dispatch<React.SetStateAction<IPost[]>>,
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Form = ({post, posts, setPosts, setVisible}:IProps) => {
-  const [text, setText] = useState<string>('');
+const Form = ({post, posts, setPosts, setVisible, text, setText}:IProps) => {
+  //const [text, setText] = useState<string>('');
   const [textSize, setTextSize] = useState<number>(0);
-
-  useEffect(() => {
-    if (post) {
-      setText(post.text);
-      setTextSize(post.text.length);
-    }
-  })
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,8 +47,10 @@ const Form = ({post, posts, setPosts, setVisible}:IProps) => {
   }
 
   const setEditPost = (post: IPost, posts: IPost[]) => {
-    const arr = [...posts.filter((el) => el.id !== post.id)];
-    setPosts([...arr, post]);
+    const arr = [...posts];
+    const index = arr.findIndex((el) => el.id === post.id);
+    arr[index] = post;
+    setPosts([...arr]);
   }
 
   const afterSubmit = () => {
@@ -67,12 +64,12 @@ const Form = ({post, posts, setPosts, setVisible}:IProps) => {
       <div className={classes.form__container}>
         <TweetTextarea 
           value={text}
-          //className={classes.textarea}
           onTextUpdate={(e) => {
             const value = e.detail.currentText;
             setTextSize(value.length);
             setText(e.detail.currentText);
-          }} 
+          }}
+           
         />
         <label>
           {text.length} / {LIMIT.POST_TEXT}

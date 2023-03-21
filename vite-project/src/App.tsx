@@ -10,9 +10,11 @@ function App() {
   const [filterPosts, setFilter] = useState<IPost[]>(posts);
   const [viseble, setVisible] = useState<boolean>(false);
   const [edit, setEdit] = useState<IPost | null>(null);
+  const [text, setText] = useState<string>('');
 
   const openForm = (post?: IPost) => {
     setEdit(post || null);
+    setText(post ? post.text : '');
     setVisible(true);
   }
 
@@ -37,6 +39,8 @@ function App() {
             posts={posts} 
             post={edit} 
             setVisible={setVisible}
+            text={text}
+            setText={setText}
           />
         </MyModal>
         <input type="text" name="" id="" onChange={handleSearch}/>
