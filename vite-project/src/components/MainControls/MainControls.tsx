@@ -1,5 +1,5 @@
-import React from "react";
-import { IPost } from "../data/types";
+import { IPost } from "../../data/types";
+import classes from "./MainControls.module.scss"
 
 interface IProps {
   openForm: (post?: IPost) => void
@@ -12,7 +12,7 @@ const MainControls = ({openForm}:IProps) => {
 
   return (
     <div>
-      <button onClick={handleClick}>Create Post</button>
+      <button className={classes.button} onClick={handleClick}>New Post</button>
     </div>
   );
 };

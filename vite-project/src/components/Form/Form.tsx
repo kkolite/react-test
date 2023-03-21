@@ -1,8 +1,8 @@
 import React from 'react'
 import TweetTextarea from 'tweet-textarea-react'
 import { LIMIT } from '../../data/limits';
-import patterns from '../../data/patterns';
 import { IPost } from "../../data/types";
+import useUniq from '../../hooks/useUniq';
 import classes from './Form.module.scss';
 import './Textarea.scss';
 
@@ -18,7 +18,7 @@ interface IProps {
 const Form = ({post, text, submit, setText, create, edit}:IProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const tags = uniqTags(text);
+    const tags = useUniq(text);
     const id = post ? post.id : new Date().getTime();
     const handledPost = {
       id,
@@ -31,12 +31,6 @@ const Form = ({post, text, submit, setText, create, edit}:IProps) => {
       edit(handledPost);
     }
     submit();
-  }
-
-  const uniqTags = (text: string) => {
-    const allTags = text.match(patterns.hasgtag) || [];
-    const set = new Set(allTags);
-    return Array.from(set);
   }
 
   return (
