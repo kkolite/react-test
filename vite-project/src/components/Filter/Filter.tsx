@@ -10,11 +10,13 @@ interface IProps {
 }
 
 const Filter = ({ tags, search, setSearch }: IProps) => {
+  const handleTagClick = (str: string) => setSearch(str);
+
   return (
     <div className={classes.container}>
       <div className={classes.taglist__container}>
         <label>Tags:</label>
-        <TagList tags={tags} setSearch={setSearch} className={classes.taglist} />
+        <TagList tags={tags} onClick={handleTagClick} className={classes.taglist} />
       </div>
       <div className={classes.input__container}>
         <input

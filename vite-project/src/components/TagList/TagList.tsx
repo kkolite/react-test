@@ -2,15 +2,15 @@ import classes from './TagList.module.scss';
 
 interface IProps {
   tags: string[];
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  onClick: (str: string) => void;
   [key: string]: unknown;
 }
 
-const TagList = ({ tags, setSearch, ...props }: IProps) => {
+const TagList = ({ tags, onClick, ...props }: IProps) => {
   const result = tags.length ? (
     <div {...props}>
       {tags.map((el) => (
-        <span key={el} className={classes.taglink} onClick={() => setSearch(el)}>
+        <span key={el} className={classes.taglink} onClick={() => onClick(el)}>
           {el}
         </span>
       ))}

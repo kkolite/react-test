@@ -51,6 +51,7 @@ function App() {
           <Form
             post={edit}
             text={text}
+            tags={uniqArr(posts.map((el) => el.tags).flat())}
             setText={setText}
             submit={afterSubmit}
             create={createNewPost}

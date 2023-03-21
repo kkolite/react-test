@@ -10,20 +10,24 @@ interface IProps {
 }
 
 const Post = ({ post, deletePost, openForm, setSearch }: IProps) => {
+  const handleTagClick = (str: string) => setSearch(str);
+
   return (
     <div className={classes.post}>
       <div>{post.text}</div>
-      <div className={classes.taglist__container}>
-        <label>Tags:</label>
-        <TagList tags={post.tags} className={classes.taglist} setSearch={setSearch} />
-      </div>
-      <div className={classes.controls}>
-        <button onClick={() => openForm(post)} className={classes.button}>
-          Edit
-        </button>
-        <button className={classes.button} onClick={() => deletePost(post.id)}>
-          Delete
-        </button>
+      <div className={classes.controls__container}>
+        <div className={classes.taglist__container}>
+          <label>Tags:</label>
+          <TagList tags={post.tags} className={classes.taglist} onClick={handleTagClick} />
+        </div>
+        <div className={classes.controls}>
+          <button onClick={() => openForm(post)} className={classes.button}>
+            Edit
+          </button>
+          <button className={classes.button} onClick={() => deletePost(post.id)}>
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );
