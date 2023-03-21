@@ -1,3 +1,4 @@
+import patterns from '../../data/patterns';
 import { IPost } from '../../data/types';
 import TagList from '../TagList/TagList';
 import classes from './Post.module.scss';
@@ -14,7 +15,11 @@ const Post = ({ post, deletePost, openForm, setSearch }: IProps) => {
 
   return (
     <div className={classes.post}>
-      <div>{post.text}</div>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: post.text.replaceAll(patterns.hasgtag, '<span class="highlight">$&</span>'),
+        }}
+      />
       <div className={classes.controls__container}>
         <div className={classes.taglist__container}>
           <label>Tags:</label>
